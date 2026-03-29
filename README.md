@@ -19,6 +19,7 @@ This repository contains a containerizing and deploying a custom HTML website. I
 * **Frontend:** HTML
 
 ##  Repository Structure
+```text
 ├── terraform/
 │   ├── main.tf              # AWS provider and EC2 instance configuration
 │   ├── vpc.tf               # Networking components (VPC, Subnet, IGW)
