@@ -1,30 +1,33 @@
-# End-to-End Web Deployment with CI/CD and Monitoring
+# End-to-End Web Deployment with CI/CD & Multi-Layer Monitoring
 
-##  Overview
-This repository contains a containerizing and deploying a custom HTML website. It provisions AWS using Terraform, automates the Docker image build and deployment via a Jenkins CI/CD pipeline, and establishes comprehensive system monitoring using Prometheus and Grafana.
+## Overview
+This project demonstrates a complete DevOps lifecycle for a custom HTML application. It features automated infrastructure provisioning, a self-triggering CI/CD pipeline, and a deep-visibility monitoring stack (Node Exporter + cAdvisor) to track both server and container health.
 
-##  Architecture & Workflow
-1. **Infrastructure as Code (IaC):** Terraform provisions a custom AWS VPC, Public Subnet, Internet Gateway, Security Groups, and an EC2 instance.
-2. **Containerization:** A Dockerfile packages a custom HTML website into a lightweight Nginx container.
-3. **CI/CD Pipeline:** A Declarative Jenkins Pipeline (`Jenkinsfile`) automates the linting, building, testing, and deployment of the Docker container directly to the host.
-4. **Observability:** Prometheus scrapes system metrics, which are then visualized through interactive Grafana dashboards.
+## Architecture & Workflow
+1.  **Infrastructure:** AWS resources (VPC, EC2, Security Groups) provisioned via **Terraform**.
+2.  **CI/CD Trigger:** A **GitHub Webhook** is configured to detect code pushes, automatically triggering the Jenkins build.
+3.  **Pipeline:** **Jenkins** pulls the private repo, builds a **Docker** image, and deploys it to the host on Port 4000.
+4.  **Monitoring:** A **Docker Compose** stack runs Prometheus, Node Exporter, and cAdvisor to gather real-time metrics.
+5.  **Visualization:** **Grafana** connects to Prometheus to display hardware and container-level dashboards.
 
-## Technologies Used
-* **Cloud Provider:** AWS (EC2, VPC, Security Groups)
-* **IaC:** Terraform
-* **CI/CD:** Jenkins
-* **Containerization:** Docker
-* **Web Server:** Nginx (Alpine)
-* **Monitoring:** Prometheus & Grafana
-* **Frontend:** HTML
+## Monitoring Stack Details
+We use a "Three-Tier" monitoring approach to ensure 100% visibility:
+* **Prometheus:** The central time-series database that scrapes all metrics.
+* **Node Exporter:** Captures OS-level metrics (CPU, RAM, Disk, Network) from the EC2 host.
+* **cAdvisor (Container Advisor):** Specifically monitors Docker containers, providing labels to filter metrics by container name (`web-container`) or image.
+* **Grafana:** Centralized dashboard for visualizing hardware health and Docker resource consumption.
 
-##  Repository Structure
+## 📂 Repository Structure
 ```text
-├── terraform/
-│   ├── main.tf              # AWS provider and EC2 instance configuration
-│   ├── vpc.tf               # Networking components (VPC, Subnet, IGW)
-│   └── outputs.tf           # Terraform outputs (Public IP)
-├── Dockerfile               # Instructions to build the Nginx web image
-├── Jenkinsfile              # Declarative CI/CD pipeline stages
-├── index.html               # Custom website source code
+├── terraform/           # Infrastructure as Code (VPC, EC2, SG)
+├── docker-compose.yml   # Monitoring stack (Prometheus, Exporters)
+├── Dockerfile           # Nginx-based image for the HTML app
+├── Jenkinsfile          # Pipeline-as-Code for automated deployment
+├── index.html           # Custom Website Source
 └── README.md
+
+**Future enhancements**
+--**Container Registry**: Move from local Docker images to Amazon ECR (Elastic Container Registry) for better versioning and security.
+--**High Availability**: Implement an Nginx Reverse Proxy or AWS ALB (Application Load Balancer) to handle traffic and SSL termination.
+--**Hardened Security**: Restrict AWS Security Groups to allow inbound traffic only from a Personal IP (My IP) rather than leaving Port 4000 open to 0.0.0.0/0.
+--**Orchestration**: Migrate the standalone Docker deployment to Amazon ECS or Kubernetes (EKS).
