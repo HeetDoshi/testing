@@ -49,14 +49,20 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"] 
   }
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 8082
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+    ingress {
+    from_port   = 9100
+    to_port     = 9100
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] 
   }
   ingress {
-    from_port   = 9090
-    to_port     = 9090
+    from_port   = 9091
+    to_port     = 9091
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] 
   }
@@ -69,6 +75,12 @@ resource "aws_security_group" "allow_ssh" {
   ingress {
     from_port   = 4000
     to_port     = 4000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] 
   }
