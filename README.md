@@ -32,6 +32,5 @@ We use a "Three-Tier" monitoring approach to ensure 100% visibility:
 -- **Hardened Security** : Restrict AWS Security Groups to allow inbound traffic only from a Personal IP (My IP) rather than leaving Port 4000 open to 0.0.0.0/0.
 -- **Orchestration** : Migrate the standalone Docker deployment to Amazon ECS or Kubernetes (EKS).
 
-<img width="1920" height="1034" alt="{033B9904-26E4-49BB-A4D1-6BA27FBFBE45}" src="https://github.com/user-attachments/assets/c77ece96-fad7-4338-a39a-b751883bb5ad" />
 
-<img width="1920" height="1031" alt="{7C2A7E64-9035-4F24-B512-AAEA016EF825}" src="https://github.com/user-attachments/assets/e452f695-db58-4889-aa8c-5a1ebbb84006" />
+
