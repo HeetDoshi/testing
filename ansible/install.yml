@@ -1,4 +1,4 @@
-[root@ip-10-0-1-168 ec2-user]# cat install.yml
+
 ---
 - name: Install Monitoring Tools and Docker on Amazon Linux
   hosts: localhost
